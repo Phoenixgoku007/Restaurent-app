@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Add Bookmark</h1>
+  <p>Are you sure you want to add this restaurant to your bookmarks?</p>
+  <p><strong>Name:</strong> {{ restaurant.name }}</p>
+  <p><strong>Address:</strong> {{ restaurant.address }}</p>
+  <p><strong>Cuisines:</strong> {{ restaurant.get_cuisines_display }}</p>
+  <p><strong>Cost for Two:</strong> {{ restaurant.cost_for_two }}</p>
+  <form method="post" action="{% url 'add_bookmark' restaurant.id %}">
+    {% csrf_token %}
+    <button type="submit">Yes, add to bookmarks</button>
+    <a href="{% url 'restaurant_detail' restaurant.id %}">No, cancel</a>
+  </form>
+{% endblock %}

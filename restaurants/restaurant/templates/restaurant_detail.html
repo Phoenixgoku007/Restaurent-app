@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ restaurant.title }}</h1>
+    <p>Rating: {{ restaurant.rating }}</p>
+    <p>Cost for Two: {{ restaurant.cost_for_two }}</p>
+    <p>Location: {{ restaurant.location }}</p>
+    <p>Address: {{ restaurant.address }}</p>
+    <p>Timings: {{ restaurant.timings }}</p>
+    <p>Food Type: {{ restaurant.get_food_type_display }}</p>
+    <h2>Cuisines</h2>
+    <ul>
+    {% for cuisine in restaurant.cuisine_set.all %}
+        <li>{{ cuisine.name }}</li>
+    {% endfor %}
+    </ul>
+    <h2>Dishes</h2>
+    <ul>
+    {% for dish in restaurant.dish_set.all %}
+        <li>{{ dish.name }} - {{ dish.price }} - {{ dish.get_dish_type_display }}</li>
+    {% endfor %}
+    </ul>
+    <h2>Reviews</h2>
+    {% for review in reviews %}
+        <p>Rating: {{ review.rating }}</p>
+        <p>Comment: {{ review.comment }}</p>
+        {% if request.user == review.user %}
+            <form action="{% url 'edit_review' review.id %}" method="post">
+                {% csrf_token %}
+                <label for="rating">Rating:</label>
+                <input type="number" name="rating" min="0" max="5" value="{{ review.rating }}">
+                <br>
+                <label for="comment">Comment:</label>
+                <textarea name="comment">{{ review.comment }}</textarea>
+                <br>
+                <input type="submit" value="Update">
+            </form>
+            <form action="{% url 'delete_review' review.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Delete">
+            </form>
+        {% endif %}
+    {% empty %}
+        <p>No reviews yet.</p>
+    {% endfor %}
+   
+{% endblock %}

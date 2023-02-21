@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Delete Review</h1>
+  <p>Are you sure you want to dele  te this review?</p>
+  <p><strong>Name:</strong> {{ review.name }}</p>
+  <p><strong>Rating:</strong> {{ review.rating }}</p>
+  <p><strong>Comments:</strong></p>
+  <p>{{ review.comments }}</p>
+  <form method="post" action="{% url 'delete_review' review.id %}">
+    {% csrf_token %}
+    <button type="submit">Yes, delete</button>
+    <a href="{% url 'restaurant_detail' review.restaurant.id %}">No, cancel</a>
+  </form>
+{% endblock %}

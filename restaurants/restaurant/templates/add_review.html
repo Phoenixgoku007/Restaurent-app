@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Add Review</h1>
+  <form method="post" action="{% url 'add_review' restaurant.id %}">
+    {% csrf_token %}
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+    <label for="rating">Rating:</label>
+    <select id="rating" name="rating" required>
+      <option value="">--Select--</option>
+      <option value="1">1 Star</option>
+      <option value="2">2 Stars</option>
+      <option value="3">3 Stars</option>
+      <option value="4">4 Stars</option>
+      <option value="5">5 Stars</option>
+    </select><br><br>
+    <label for="comments">Comments:</label><br>
+    <textarea id="comments" name="comments" rows="4" cols="50" required></textarea><br><br>
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %}

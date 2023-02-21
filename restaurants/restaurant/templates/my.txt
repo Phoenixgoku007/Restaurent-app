@@ -1,0 +1,36 @@
+ {% if request.user.is_authenticated %}
+        {% if Bookmark.objects.filter(user=request.user, restaurant=restaurant).exists %}
+            <form action="{% url 'remove_bookmark' Bookmark.objects.get(user=request.user, restaurant=restaurant).id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Remove Bookmark">
+            </form>
+        {% else %}
+            <form action="{% url 'add_bookmark' restaurant.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Bookmark">
+            </form>
+        {% endif %}
+        {% if Visit.objects.filter(user=request.user, restaurant=restaurant).exists %}
+            <form action="{% url 'remove_visit' Visit.objects.get(user=request.user, restaurant=restaurant).id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Remove Visit">
+            </form>
+        {% else %}
+            <form action="{% url 'add_visit' restaurant.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Mark as Visited">
+            </form>
+        {% endif %}
+        <form action="{% url 'add_review' restaurant.id %}" method="post">
+            {% csrf_token %}
+            <label for="rating">Rating:</label>
+            <input type="number" name="rating" min="0" max="5">
+            <br>
+            <label for="comment">Comment:</label>
+            <textarea name="comment"></textarea>
+            <br>
+            <input type="submit" value="Add Review">
+        </form>
+    {% else %}
+        <p>Please <a href="{% url 'login' %}">log in</a> to add a review.</p>
+    {% endif %}
