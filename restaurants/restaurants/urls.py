@@ -27,6 +27,7 @@ urlpatterns = [
    path('login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('signup/', signup, name='signup'),
+    path('accounts/profile/', views.profile_view, name='profile'), #throwing error 
     path('<int:id>/', restaurant_detail_view, name='restaurant_detail'),
     path('<int:id>/add_review/', add_review_view, name='add_review'),
     path('edit_review/<int:id>/', edit_review_view, name='edit_review'),

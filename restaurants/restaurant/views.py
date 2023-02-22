@@ -273,3 +273,7 @@ def remove_visit_view(request, id):
     visit = get_object_or_404(Visit, user=request.user, restaurant_id=id)
     visit.delete()
     return redirect('restaurant_detail', id=id)
+
+@login_required
+def profile_view(request):
+    return render(request, 'accounts/profile.html')
