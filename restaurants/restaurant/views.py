@@ -55,6 +55,19 @@ def user_logout(request):
     messages.success(request, 'You have been logged out.')
     return redirect('index')
 
+def signup_view(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account created for {username}!')
+            login(request, user)
+            return redirect('restaurant-list')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'accounts/signup.html', {'form': form})
+    
 def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')

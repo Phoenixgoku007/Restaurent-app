@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
@@ -7,6 +7,8 @@ from restaurant import views
 from restaurant.views import logout_view
 from django.contrib.auth import views as auth_views
 from restaurant.views import signup
+from accounts import views
+from accounts.views import signup_view
 
 from restaurant.views import (
     restaurant_list_view,
@@ -20,13 +22,18 @@ from restaurant.views import (
     remove_visit_view,
 )
 
+app_name='accounts'
+
 urlpatterns = [
+    path('', include('django.contrib.auth.urls')),
+    path('signup/', views.signup_view, name='signup'),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
     path('', restaurant_list_view, name='restaurant_list'),
     path('home', restaurant_list_view, name='restaurant_list'),
     path('admin/', admin.site.urls),
-   path('login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
+    path('login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('signup/', signup, name='signup'),
+    #path('signup/', signup, name='signup'),
     path('accounts/profile/', views.profile_view, name='profile'), #throwing error 
     path('<int:id>/', restaurant_detail_view, name='restaurant_detail'),
     path('<int:id>/add_review/', add_review_view, name='add_review'),
