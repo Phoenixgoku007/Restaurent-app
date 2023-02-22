@@ -4,28 +4,32 @@
 <div class="container">
   <div class="row justify-content-md-center">
     <div class="col col-md-6">
-      <form method="post">
-        {% csrf_token %}
-        <h2>Sign Up</h2>
-        <hr>
-        <div class="form-group">
-          <label for="{{ form.username.id_for_label }}">Username:</label>
-          {{ form.username }}
-        </div>
-        <div class="form-group">
-          <label for="{{ form.password1.id_for_label }}">Password:</label>
-          {{ form.password1 }}
-        </div>
-        <div class="form-group">
-          <label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
-          {{ form.password2 }}
-        </div>
-        <div class="form-group">
-          <label for="{{ form.email.id_for_label }}">Email:</label>
-          {{ form.email }}
-        </div>
-        <button type="submit" class="btn btn-primary">Sign Up</button>
-      </form>
+      <center>
+        <form method="post">
+          {% csrf_token %}
+          <h2>Sign Up</h2>
+          <hr>
+          <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">Username:</label>
+            {{ form.username }}
+          </div><br>
+          <div class="form-group">
+            <label for="{{ form.password1.id_for_label }}">Password:</label>
+            {{ form.password1 }}
+          </div><br>
+          <div class="form-group">
+            <label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
+            {{ form.password2 }}
+          </div><br>
+          <!--<div class="form-group">
+            <label for="{{ form.email.id_for_label }}">Email:</label>
+            {{ form.email }}
+          </div>-->
+          <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+
+      </center>
+      
     </div>
   </div>
 </div>
